@@ -1,3 +1,4 @@
+import 'package:earthquake/pages/home_page.dart';
 import 'package:earthquake/providers/app_data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -20,14 +21,14 @@ class MyApp extends StatelessWidget {
       title: 'Earthquakes',
       theme: ThemeData(
 
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple,brightness: Brightness.dark),
         useMaterial3: true,
       ),
         builder: EasyLoading.init(),
-        home: Placeholder(),
+        home: HomePage(),
 
     );
 
   }
 }
-//133 3.40
+//135 finished

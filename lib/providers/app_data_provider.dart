@@ -1,9 +1,10 @@
-import 'dart:html';
+import 'dart:convert';
+
 import 'package:earthquake/utils/helper_functions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:earthquake/models/earthquake_model.dart';
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
 class AppDataProvider with ChangeNotifier {
   final baseUrl = Uri.parse('https://earthquake.usgs.gov/fdsnws/event/1/query');
   Map<String, dynamic> queryParams = {};
@@ -53,5 +54,55 @@ class AppDataProvider with ChangeNotifier {
     _endTime = getFormattedDateTime(DateTime.now().millisecondsSinceEpoch);
     _maxRadiusKm = maxRadiusKmThreshold;
     _setQueryParams();
+    getEarthquakeData();
+  }
+  Future<void> getEarthquakeData() async {
+    final uri = Uri.https(baseUrl.authority, baseUrl.path, queryParams);
+    try {
+      final response = await http.get(uri);
+     if(response.statusCode == 200) {
+       final json = jsonDecode(response.body) ;
+       earthquakeModel = EarthquakeModel.fromJson(json);
+       print(earthquakeModel!.features!.length);
+       notifyListeners();
+     }
+
+    } catch(error){
+      print(error.toString());
+    }
   }
 }
+
+
+//136 5.00
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
