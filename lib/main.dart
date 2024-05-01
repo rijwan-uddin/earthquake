@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       title: 'Earthquakes',
       theme: ThemeData(
 
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple,brightness: Brightness.dark),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple,brightness: Brightness.light),
         useMaterial3: true,
       ),
         builder: EasyLoading.init(),
