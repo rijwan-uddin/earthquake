@@ -20,6 +20,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(title: Text('Earthquakes'),
       backgroundColor:Colors.black,
+
+      ),
+      body: ListView(
+        children: [
+          Text('You will get all data here')
+        ],
       ),
     );
   }
