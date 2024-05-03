@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
 
       ),
 body: Consumer<AppDataProvider>(
-  builder: (context,provider,child)=> ,
+  builder: (context,provider,child)=>provider.hasDataloaded? ,
 ),
     );
   }

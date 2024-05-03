@@ -36,6 +36,8 @@ class AppDataProvider with ChangeNotifier {
 
   bool get shouldUseLocation => _shouldUseLocation;
 
+  bool get hasDataloaded => earthquakeModel!=null;
+
   _setQueryParams(){
     queryParams ['format'] = 'geojson';
     queryParams ['starttime'] = _startTime;
