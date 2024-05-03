@@ -19,14 +19,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Earthquakes'),
-      backgroundColor:Colors.black,
+
 
       ),
-      body: ListView(
-        children: [
-          Text('You will get all data here')
-        ],
-      ),
+body: Consumer<AppDataProvider>(
+  builder: (context,provider,child)=> ,
+),
     );
   }
 }
