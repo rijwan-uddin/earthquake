@@ -52,11 +52,22 @@ class AppDataProvider with ChangeNotifier {
   }
 
   init(){
-    _startTime = getFormattedDateTime(DateTime.now().subtract(const Duration(days:1)).millisecondsSinceEpoch);
+    _startTime = getFormattedDateTime(DateTime.now().subtract(const Duration(days:10)).millisecondsSinceEpoch);
     _endTime = getFormattedDateTime(DateTime.now().millisecondsSinceEpoch);
     _maxRadiusKm = maxRadiusKmThreshold;
     _setQueryParams();
     getEarthquakeData();
+  }
+
+
+  Color getAlertColor(String color){
+    return switch(color){
+      'green' => Colors.green,
+      'yellow' => Colors.yellow,
+      'orange' => Colors.orange,
+      _ => Colors.red,
+
+    };
   }
   Future<void> getEarthquakeData() async {
     final uri = Uri.https(baseUrl.authority, baseUrl.path, queryParams);
