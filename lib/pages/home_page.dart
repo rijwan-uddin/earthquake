@@ -20,14 +20,20 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Earthquakes'),
-
-
+      appBar: AppBar(
+        title: Text('Earthquakes'),
+        actions: [
+          IconButton(
+            onPressed: _showSortingDialog,
+            icon: Icon(Icons.sort),
+          )
+        ],
       ),
       body: Consumer<AppDataProvider>(
-        builder: (context, provider, child) => provider.hasDataloaded ?
-        provider.earthquakeModel!.features!.isEmpty ?
-        Center(child: Text('No record found'),):
+        builder: (context, provider, child) => provider.hasDataloaded
+            ? provider.earthquakeModel!.features!.isEmpty
+                ? Center(
+                    child: Text('No record found'),):
         ListView.builder(
           itemCount: provider.earthquakeModel!.features!.length,
           itemBuilder: (context , index){
@@ -47,6 +53,88 @@ class _HomePageState extends State<HomePage> {
           child: Text('please wait'),
         ),
       ),
+    );
+  }
+
+  void _showSortingDialog() {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text('Sort by'),
+              content: Consumer<AppDataProvider>(
+                builder: (context, provider, child) => Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    RadioGroup(
+                      groupValue: provider.orderBy,
+                      value: 'magnitude',
+                      label: 'Magnitude-Desc',
+                      onChange: (value) {
+                        provider.setOrder(value!);
+                      },
+                    ),
+                    RadioGroup(
+                      groupValue: provider.orderBy,
+                      value: 'magnitude-asc',
+                      label: 'Magnitude-Asc',
+                      onChange: (value) {
+                        provider.setOrder(value!);
+                      },
+                    ),
+                    RadioGroup(
+                      groupValue: provider.orderBy,
+                      value: 'time',
+                      label: 'Time-Desc',
+                      onChange: (value) {
+                        provider.setOrder(value!);
+                      },
+                    ),
+                    RadioGroup(
+                      groupValue: provider.orderBy,
+                      value: 'time-asc',
+                      label: 'Time-Asc',
+                      onChange: (value) {
+                        provider.setOrder(value!);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text('close'),
+                )
+              ],
+            ));
+  }
+}
+
+class RadioGroup extends StatelessWidget {
+  final String groupValue;
+  final String value;
+  final String label;
+  final Function(String?) onChange;
+
+  const RadioGroup({
+    super.key,
+    required this.groupValue,
+    required this.value,
+    required this.label,
+    required this.onChange,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Radio<String>(
+          value: value,
+          groupValue: groupValue,
+          onChanged: onChange,
+        ),
+        Text(label)
+      ],
     );
   }
 }

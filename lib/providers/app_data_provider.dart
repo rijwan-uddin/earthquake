@@ -38,6 +38,12 @@ class AppDataProvider with ChangeNotifier {
 
   bool get hasDataloaded => earthquakeModel!=null;
 
+  void setOrder(String value){
+    _orderBy = value;
+    notifyListeners();
+    _setQueryParams();
+    getEarthquakeData();
+  }
   _setQueryParams(){
     queryParams ['format'] = 'geojson';
     queryParams ['starttime'] = _startTime;
@@ -52,7 +58,7 @@ class AppDataProvider with ChangeNotifier {
   }
 
   init(){
-    _startTime = getFormattedDateTime(DateTime.now().subtract(const Duration(days:10)).millisecondsSinceEpoch);
+    _startTime = getFormattedDateTime(DateTime.now().subtract(const Duration(days:1)).millisecondsSinceEpoch);
     _endTime = getFormattedDateTime(DateTime.now().millisecondsSinceEpoch);
     _maxRadiusKm = maxRadiusKmThreshold;
     _setQueryParams();
