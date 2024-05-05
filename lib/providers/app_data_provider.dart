@@ -90,6 +90,18 @@ class AppDataProvider with ChangeNotifier {
       print(error.toString());
     }
   }
+
+  void setStartTime(String date) {
+    _startTime = date;
+    _setQueryParams();
+    notifyListeners();
+  }
+
+  void setEndTime(String date) {
+    _endTime = date;
+    _setQueryParams();
+    notifyListeners();
+  }
 }
 
 
