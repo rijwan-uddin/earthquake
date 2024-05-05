@@ -34,3 +34,4 @@ Support
 
 If you encounter any issues or have any questions, please don't hesitate to contact us.
  
+![earthHome](https://github.com/rijwan-uddin/earthquake/assets/96045123/16a4858c-5e63-4cc8-b2aa-61f9964b2b11)
