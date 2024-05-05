@@ -33,5 +33,13 @@ We would like to express our gratitude to the following individuals and organiza
 Support
 
 If you encounter any issues or have any questions, please don't hesitate to contact us.
- 
+
+Snaps of the app
+
 ![earthHome](https://github.com/rijwan-uddin/earthquake/assets/96045123/16a4858c-5e63-4cc8-b2aa-61f9964b2b11)
+
+![e2](https://github.com/rijwan-uddin/earthquake/assets/96045123/5f51dd6e-522d-4ccc-9785-54749b8a4e8a)
+
+![e3](https://github.com/rijwan-uddin/earthquake/assets/96045123/13008b90-278f-4c1a-837f-89ca31a3a1e7)
+
+![e4](https://github.com/rijwan-uddin/earthquake/assets/96045123/c1917800-c7d2-41b6-a05f-84284042627a)
