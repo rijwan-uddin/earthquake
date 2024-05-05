@@ -1,10 +1,11 @@
 import 'dart:convert';
-
+import 'package:geolocator/geolocator.dart';
 import 'package:earthquake/utils/helper_functions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:earthquake/models/earthquake_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:geocoding/geocoding.dart' as gc;
 class AppDataProvider with ChangeNotifier {
   final baseUrl = Uri.parse('https://earthquake.usgs.gov/fdsnws/event/1/query');
   Map<String, dynamic> queryParams = {};
@@ -101,6 +102,83 @@ class AppDataProvider with ChangeNotifier {
     _endTime = date;
     _setQueryParams();
     notifyListeners();
+  }
+
+ Future<void> setLocation(bool value) async {
+    _shouldUseLocation = value;
+    notifyListeners();
+    if(value){
+      final position = await _determinePosition();
+      _latitude = position.latitude;
+      _longitude= position.longitude;
+      await _getCurrentCity();
+      _maxRadiusKm= 500;
+      _setQueryParams();
+      getEarthquakeData();
+    }
+    else {
+      _latitude = 0.0;
+      _longitude=0.0;
+      _maxRadiusKm = maxRadiusKmThreshold;
+      _currentCity = null;
+      _setQueryParams();
+      getEarthquakeData();
+    }
+ }
+ Future<void> _getCurrentCity() async {
+
+    try{
+     final placemarkList = await gc.placemarkFromCoordinates(_latitude, _longitude );
+    if (placemarkList.isNotEmpty){
+      final placemark = placemarkList.first;
+      _currentCity = placemark.locality;
+      notifyListeners();
+    }
+
+    } catch(error ){
+
+      print(error);
+    }
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    return await Geolocator.getCurrentPosition();
   }
 }
 
