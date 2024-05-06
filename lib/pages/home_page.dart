@@ -29,7 +29,8 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.sort),
           ),
           IconButton(
-            onPressed:() => Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsPage())),
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const SettingsPage())),
             icon: Icon(Icons.settings),
           )
         ],
@@ -38,25 +39,32 @@ class _HomePageState extends State<HomePage> {
         builder: (context, provider, child) => provider.hasDataloaded
             ? provider.earthquakeModel!.features!.isEmpty
                 ? Center(
-                    child: Text('No record found'),):
-        ListView.builder(
-          itemCount: provider.earthquakeModel!.features!.length,
-          itemBuilder: (context , index){
-            final data = provider.earthquakeModel!.features![index].properties!;
-            return ListTile(
-              title:Text(data.place ?? data.title ?? 'unknown'),
-              subtitle: Text(getFormattedDateTime(data.time!, 'EEE MMM dd yyyy hh:mm a ')),
-              trailing: Chip(
-                avatar: data.alert == null ? null : CircleAvatar(
-                  backgroundColor: provider.getAlertColor(data.alert!),
-                ) ,
-                label: Text('${data.mag}'),
+                    child: Text('No record found'),
+                  )
+                : ListView.builder(
+                    itemCount: provider.earthquakeModel!.features!.length,
+                    itemBuilder: (context, index) {
+                      final data = provider
+                          .earthquakeModel!.features![index].properties!;
+                      return ListTile(
+                        title: Text(data.place ?? data.title ?? 'unknown'),
+                        subtitle: Text(getFormattedDateTime(
+                            data.time!, 'EEE MMM dd yyyy hh:mm a ')),
+                        trailing: Chip(
+                          avatar: data.alert == null
+                              ? null
+                              : CircleAvatar(
+                                  backgroundColor:
+                                      provider.getAlertColor(data.alert!),
+                                ),
+                          label: Text('${data.mag}'),
+                        ),
+                      );
+                    },
+                  )
+            : Center(
+                child: Text('please wait'),
               ),
-            );
-          },
-        ) : Center(
-          child: Text('please wait'),
-        ),
       ),
     );
   }

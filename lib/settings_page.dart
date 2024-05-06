@@ -60,7 +60,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         provider.getEarthquakeData();
                         showMsg(context, 'Times are updated');
                       },
-                      child: Text('update time changes'))
+                      child: Text('Update time'))
                 ],
               ),
             ),
@@ -81,7 +81,6 @@ class _SettingsPageState extends State<SettingsPage> {
                   await provider.setLocation(value);
 
                   EasyLoading.dismiss();
-
                 },
               ),
             ),

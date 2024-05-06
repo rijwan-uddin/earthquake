@@ -6,14 +6,11 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
-
-      create: (ctx) => AppDataProvider(),
-      child: const MyApp()));
+      create: (ctx) => AppDataProvider(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +18,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Earthquakes',
       theme: ThemeData(
-
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple,brightness: Brightness.light),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.deepPurple, brightness: Brightness.light),
         useMaterial3: true,
       ),
-        builder: EasyLoading.init(),
-        home: HomePage(),
-
+      builder: EasyLoading.init(),
+      home: HomePage(),
     );
-
   }
 }
-//138 finished
